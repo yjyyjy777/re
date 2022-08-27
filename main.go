@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -25,7 +26,9 @@ func ChangeTestConfig(address, port, dbname string) error {
 		if c == io.EOF {
 			break
 		}
-		if strings.Contains(string(line), "address") {
+		//if strings.Contains(string(line), "address") {
+		add, _ := regexp.Match("^addres", line)
+		if add {
 			newline := "address = " + address
 			line = []byte(newline)
 		}
